@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { message } from 'antd'
 
+const url = import.meta.env.VITE_BASE_URL
+
 const instance = axios.create({
-  baseURL: '',
+  baseURL: url,
   timeout: 3000,
   timeoutErrorMessage: '请求超时',
   withCredentials: true,

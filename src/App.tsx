@@ -1,7 +1,10 @@
+import router from './router'
+import { RouterProvider } from 'react-router'
+
 function App() {
   return (
     <>
-      <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">APP</div>
+      <RouterProvider router={router} />
     </>
   )
 }

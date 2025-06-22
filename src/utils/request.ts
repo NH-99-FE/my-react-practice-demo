@@ -8,9 +8,14 @@ const instance = axios.create({
   timeout: 3000,
   timeoutErrorMessage: '请求超时',
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
+    'X-Requested-With': 'XMLHttpRequest',
+  },
 })
 
-instance.interceptors.response.use(
+instance.interceptors.request.use(
   config => {
     // TODO: 请求拦截器
     return config

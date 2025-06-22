@@ -4,8 +4,13 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://m1.apifoxmock.com/m1/6627154-6334500-default',
+        changeOrigin: true,
+      },
+    },
+  },
+  plugins: [react(), tailwindcss()],
 })

@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router'
-import Welcome from '../pages/welcome'
+import Login from '../pages/login'
 const router = createBrowserRouter([
   {
-    path: '/',
-    Component: Welcome,
+    path: '/login',
+    Component: Login,
   },
 ])
 

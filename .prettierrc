@@ -9,5 +9,7 @@
   "tabWidth": 2,
   "useTabs": false,
   "trailingComma": "es5",
-  "parser": "typescript"
+  "parser": "typescript",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/index.css"
 }

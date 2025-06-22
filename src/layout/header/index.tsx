@@ -2,7 +2,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import storage from '../../utils/storage.ts'
-import useCollapsedStore from '../../store'
+import useStore from '../../store'
 
 const items: MenuProps['items'] = [
   {
@@ -22,14 +22,14 @@ const onClick = ({ key }: { key: string }) => {
   }
 }
 const NavHeader = () => {
-  const { collapsed, updateCollapsed } = useCollapsedStore()
+  const { collapsed, updateCollapsed } = useStore()
 
   const toggleCollapsed = () => {
     updateCollapsed()
   }
 
   return (
-    <div className="flex items-center justify-between h-15 px-5 bg-white dark:bg-gray-800">
+    <div className="flex h-15 items-center justify-between bg-white px-5 dark:bg-gray-800">
       <div className="flex items-center justify-between">
         <Button
           type="text"
@@ -44,7 +44,7 @@ const NavHeader = () => {
       </div>
       <div>
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
-          <span className="text-lg cursor-pointer mr-2">jack</span>
+          <span className="mr-2 cursor-pointer text-lg">jack</span>
         </Dropdown>
       </div>
     </div>

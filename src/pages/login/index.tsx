@@ -11,9 +11,9 @@ const Login = () => {
     window.location.href = '/'
   }
   return (
-    <div className="flex h-full w-full justify-center items-center">
+    <div className="flex h-full w-full items-center justify-center">
       <div>
-        <h1 className="text-center my-5 text-2xl font-medium">系统登录</h1>
+        <h1 className="my-5 text-center text-2xl font-medium">系统登录</h1>
         <Form
           name="login"
           initialValues={{ remember: true }}

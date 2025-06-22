@@ -7,7 +7,8 @@ import {
   LaptopOutlined,
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
-import useCollapsedStore from '../../store'
+import useStore from '../../store'
+import { useNavigate } from 'react-router'
 type MenuItem = Required<MenuProps>['items'][number]
 
 const items: MenuItem[] = [
@@ -26,24 +27,30 @@ const items: MenuItem[] = [
 ]
 
 const SiderMenu = () => {
-  const { collapsed } = useCollapsedStore()
+  const { collapsed, currentMenu, setCurrentMenu } = useStore()
+  const navigate = useNavigate()
+  const menuClick = ({ key }: { key: string }) => {
+    navigate(key)
+    setCurrentMenu(key)
+  }
   return (
     <>
-      <div className="flex items-center justify-center py-3 px-5 ">
+      <div className="flex items-center justify-center px-5 py-3">
         <img src="/imgs/logo.png" alt="logo" className="h-6 w-6" />
         {collapsed ? null : (
-          <span className="cursor-pointer text-gray-100 dark:text-black mx-5 whitespace-nowrap overflow-hidden">
+          <span className="mx-5 cursor-pointer overflow-hidden whitespace-nowrap text-gray-100 dark:text-black">
             企业中台管理
           </span>
         )}
       </div>
       <Menu
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
+        defaultSelectedKeys={[currentMenu]}
+        defaultOpenKeys={['/user']}
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}
         items={items}
+        onClick={menuClick}
       />
     </>
   )

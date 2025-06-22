@@ -1,7 +1,8 @@
 import { Menu } from 'antd'
 import {
   UserOutlined,
-  MailOutlined,
+  MenuOutlined,
+  UsergroupAddOutlined,
   PieChartOutlined,
   SolutionOutlined,
   LaptopOutlined,
@@ -16,10 +17,10 @@ const items: MenuItem[] = [
   {
     key: '/user',
     label: '用户模块',
-    icon: <MailOutlined />,
+    icon: <UsergroupAddOutlined />,
     children: [
       { key: '/userList', label: '用户列表', icon: <UserOutlined /> },
-      { key: '/menuList', label: '菜单管理', icon: <MailOutlined /> },
+      { key: '/menuList', label: '菜单管理', icon: <MenuOutlined /> },
       { key: '/roleList', label: '角色管理', icon: <SolutionOutlined /> },
       { key: '/deptList', label: '部门管理', icon: <LaptopOutlined /> },
     ],

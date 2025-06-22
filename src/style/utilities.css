@@ -1,0 +1,9 @@
+@utility default-transition {
+    @apply transition-all ease-in-out duration-350;
+}
+@utility border-color {
+    @apply border-gray-200 dark:border-gray-700;
+}
+@utility hover-only-transition {
+    @apply hover:transition-colors hover:duration-350 hover:ease-in-out;
+}

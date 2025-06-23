@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space } from 'antd'
+import { Button, Form, Input, message, Modal, Space } from 'antd'
 import { Table } from 'antd'
 import type { TableColumnsType } from 'antd'
 import type { IDept } from '../../types/api.ts'
@@ -96,7 +96,21 @@ const Dept = () => {
   }
 
   const handleDelete = (id: string) => {
-    console.log(id)
+    Modal.confirm({
+      title: '删除部门',
+      content: '确认删除该部门吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        handleDelOk(id)
+      },
+    })
+  }
+
+  const handleDelOk = async (id: string) => {
+    await api.deleteDept({ _id: id })
+    message.success('删除成功')
+    getDeptDate()
   }
 
   const handleReset = () => {

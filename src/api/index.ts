@@ -22,6 +22,11 @@ export default {
     return request.post('/dept/edit', params)
   },
 
+  // 删除部门
+  deleteDept(params: { _id: string }) {
+    return request.post('/dept/delete', params)
+  },
+
   // 获取用户列表
   getUserList() {
     return request.get('/users/list')

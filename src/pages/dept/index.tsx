@@ -89,7 +89,6 @@ const Dept = () => {
 
   const handleSubCreate = (id: string) => {
     deptCreatRef.current?.showModal('create', { parentId: id })
-    console.log(id)
   }
 
   const handleEdit = (record: IDept) => {

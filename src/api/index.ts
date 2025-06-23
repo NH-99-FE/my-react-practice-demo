@@ -1,5 +1,12 @@
 import request from '../utils/request.ts'
-import type { IDept, ILoginParams, IUser } from '../types/api.ts'
+import type {
+  ICreateMenuParams,
+  IDept,
+  ILoginParams,
+  IMenu,
+  IUpdateMenuParams,
+  IUser,
+} from '../types/api.ts'
 import type { IDeptSearchParams } from '../types/api.ts'
 
 export default {
@@ -35,5 +42,26 @@ export default {
   // 获取所有用户信息
   getAllUserList() {
     return request.get<IUser[]>('/users/all/list')
+  },
+
+  // 菜单模块
+  // 创建菜单
+  createMenu(params: ICreateMenuParams) {
+    return request.post('/menu/create', params)
+  },
+
+  // 更新菜单
+  updateMenu(params: IUpdateMenuParams) {
+    return request.post('/menu/edit', params)
+  },
+
+  // 获取菜单列表
+  getMenuList() {
+    return request.get<IMenu>('/menu/list')
+  },
+
+  // 删除菜单
+  deleteMenu(params: { _id: string }) {
+    return request.post('/menu/delete', params)
   },
 }

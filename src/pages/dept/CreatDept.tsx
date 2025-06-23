@@ -76,8 +76,8 @@ const CreatDept = ({ ref, updateDeptList }: CreatDeptProps) => {
         cancelText="取消"
         okText="确认"
       >
-        <Form labelAlign={'right'} labelCol={{ span: 4 }} form={form}>
-          <Form.Item name="_id">
+        <Form labelAlign={'right'} labelCol={{ span: 4 }} form={form} style={{ marginTop: 20 }}>
+          <Form.Item hidden name="_id">
             <Input type="hidden" />
           </Form.Item>
           <Form.Item label="上级部门" name="parentId">

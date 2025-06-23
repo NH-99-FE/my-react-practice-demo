@@ -124,7 +124,7 @@ const Dept = () => {
 
   return (
     <div>
-      <div className="rounded-t-md bg-white px-4 py-2 dark:bg-gray-800">
+      <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
         <Form layout="inline" form={form}>
           <Form.Item name="deptName" label="部门名称" className="font-bold">
             <Input placeholder="请输入部门名称" className="font-medium" />
@@ -137,7 +137,7 @@ const Dept = () => {
           </Form.Item>
         </Form>
       </div>
-      <div className="flex items-center justify-between bg-white px-4 py-3 dark:bg-gray-800">
+      <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">部门列表：</div>
         <div>
           <Button type={'primary'} className="mr-3" onClick={handleCreate}>

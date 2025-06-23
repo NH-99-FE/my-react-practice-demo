@@ -3,12 +3,14 @@ import { Table } from 'antd'
 import type { TableColumnsType } from 'antd'
 import type { IDept } from '../../types/api.ts'
 import api from '../../api'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
+import CreatDept, { type CreateDept } from './CreatDept.tsx'
 
 const Dept = () => {
   const [data, setData] = useState<IDept[]>([])
   const [form] = Form.useForm()
+  const deptCreatRef = useRef<CreateDept>(null)
   useEffect(() => {
     getDeptDate()
   }, [])
@@ -86,11 +88,12 @@ const Dept = () => {
   }
 
   const handleSubCreate = (id: string) => {
+    deptCreatRef.current?.showModal('create', { parentId: id })
     console.log(id)
   }
 
   const handleEdit = (record: IDept) => {
-    console.log(record)
+    deptCreatRef.current?.showModal('edit', record)
   }
 
   const handleDelete = (id: string) => {
@@ -102,12 +105,16 @@ const Dept = () => {
     getDeptDate()
   }
 
+  const handleCreate = () => {
+    deptCreatRef.current?.showModal('create')
+  }
+
   return (
-    <>
+    <div>
       <div className="rounded-t-md bg-white px-4 py-2 dark:bg-gray-800">
         <Form layout="inline" form={form}>
           <Form.Item name="deptName" label="部门名称" className="font-bold">
-            <Input placeholder="请输入部门名称" />
+            <Input placeholder="请输入部门名称" className="font-medium" />
           </Form.Item>
           <Form.Item>
             <Button type="primary" className="mr-5" onClick={getDeptDate}>
@@ -120,14 +127,15 @@ const Dept = () => {
       <div className="flex items-center justify-between bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">部门列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3">
+          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
           <Button>重置</Button>
         </div>
       </div>
       <Table rowKey="_id" columns={columns} dataSource={data} />
-    </>
+      <CreatDept ref={deptCreatRef} updateDeptList={getDeptDate} />
+    </div>
   )
 }
 

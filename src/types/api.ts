@@ -16,3 +16,11 @@ export interface IDept {
   userName: string
   children: Array<IDept>
 }
+
+// 用户模块
+export interface IUser {
+  _id: string
+  userName: string
+  userId: string
+  userEmail: string
+}

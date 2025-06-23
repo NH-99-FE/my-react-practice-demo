@@ -40,16 +40,16 @@ instance.interceptors.response.use(
   }
 )
 export default {
-  get: (url: string, params?: object) => {
+  get<T>(url: string, params?: object): Promise<T> {
     return instance.get(url, { params })
   },
-  post: (url: string, body?: object) => {
+  post<T>(url: string, body?: object): Promise<T> {
     return instance.post(url, body)
   },
-  put: (url: string, body?: object) => {
+  put<T>(url: string, body?: object): Promise<T> {
     return instance.put(url, body)
   },
-  delete: (url: string, params?: object) => {
+  delete<T>(url: string, params?: object): Promise<T> {
     return instance.delete(url, { params })
   },
 }

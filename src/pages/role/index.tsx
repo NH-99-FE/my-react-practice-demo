@@ -4,11 +4,13 @@ import { formatDate } from '../../utils'
 import api from '../../api/roleApi.ts'
 import { useAntdTable } from 'ahooks'
 import CreateRole, { type CreateRoleRef } from './CreateRole.tsx'
+import SetPermission, { type SetPermissionRef } from './SetPermission.tsx'
 import { useRef } from 'react'
 
 const Role = () => {
   const [form] = Form.useForm()
   const roleRef = useRef<CreateRoleRef>(null)
+  const permissionRef = useRef<SetPermissionRef>(null)
 
   const columns: TableColumnsType<IRole> = [
     { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
@@ -43,7 +45,7 @@ const Role = () => {
             <Button
               type="primary"
               onClick={() => {
-                handleSetPermission(record._id)
+                handleSetPermission(record)
               }}
             >
               设置权限
@@ -70,8 +72,8 @@ const Role = () => {
     roleRef.current?.showModal('edit', record)
   }
 
-  const handleSetPermission = (id: string) => {
-    console.log(id)
+  const handleSetPermission = (record: IRole) => {
+    permissionRef.current?.showModal(record)
   }
 
   const handleDelete = (id: string) => {
@@ -135,6 +137,7 @@ const Role = () => {
       </div>
       <Table bordered rowKey="_id" columns={columns} {...tableProps} />
       <CreateRole ref={roleRef} updateRoleList={submit} />
+      <SetPermission ref={permissionRef} updateRoleList={submit} />
     </>
   )
 }

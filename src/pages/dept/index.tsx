@@ -146,7 +146,7 @@ const Dept = () => {
           <Button>重置</Button>
         </div>
       </div>
-      <Table rowKey="_id" columns={columns} dataSource={data} />
+      <Table bordered rowKey="_id" columns={columns} dataSource={data} />
       <CreatDept ref={deptCreatRef} updateDeptList={getDeptDate} />
     </>
   )

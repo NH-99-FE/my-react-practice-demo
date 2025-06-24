@@ -177,7 +177,7 @@ const Menu = () => {
           <Button>重置</Button>
         </div>
       </div>
-      <Table rowKey="_id" columns={columns} dataSource={data} pagination={false} />
+      <Table bordered rowKey="_id" columns={columns} dataSource={data} pagination={false} />
       <CreatMenu ref={menuCreatRef} updateDeptList={getMenuDate} />
     </>
   )

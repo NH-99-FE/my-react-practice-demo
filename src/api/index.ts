@@ -4,6 +4,7 @@ import type {
   IDept,
   ILoginParams,
   IMenu,
+  IMenuSearchParams,
   IUpdateMenuParams,
   IUser,
 } from '../types/api.ts'
@@ -56,8 +57,8 @@ export default {
   },
 
   // 获取菜单列表
-  getMenuList() {
-    return request.get<IMenu>('/menu/list')
+  getMenuList(params?: IMenuSearchParams) {
+    return request.get<IMenu[]>('/menu/list', params)
   },
 
   // 删除菜单

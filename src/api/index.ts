@@ -1,11 +1,11 @@
 import request from '../utils/request.ts'
 import type {
-  ICreateMenuParams,
+  IMenuCreateParams,
   IDept,
   ILoginParams,
   IMenu,
   IMenuSearchParams,
-  IUpdateMenuParams,
+  IMenuUpdateParams,
   IUser,
 } from '../types/api.ts'
 import type { IDeptSearchParams } from '../types/api.ts'
@@ -47,12 +47,12 @@ export default {
 
   // 菜单模块
   // 创建菜单
-  createMenu(params: ICreateMenuParams) {
+  createMenu(params: IMenuCreateParams) {
     return request.post('/menu/create', params)
   },
 
   // 更新菜单
-  updateMenu(params: IUpdateMenuParams) {
+  updateMenu(params: IMenuUpdateParams) {
     return request.post('/menu/edit', params)
   },
 

@@ -3,6 +3,15 @@ interface IPageParams {
   pageSize: number
 }
 
+export interface ResultDate<T> {
+  list: Array<T>
+  page: {
+    pageNum: number
+    pageSize: number
+    total: number
+  }
+}
+
 export interface ILoginParams {
   username: string
   password: string
@@ -33,7 +42,7 @@ export interface IUser {
 // 菜单模块
 
 // 创建菜单参数
-export interface ICreateMenuParams {
+export interface IMenuCreateParams {
   menuName: string
   icon?: string
   path: string
@@ -45,12 +54,12 @@ export interface ICreateMenuParams {
 }
 
 // 更新菜单参数
-export interface IUpdateMenuParams extends ICreateMenuParams {
+export interface IMenuUpdateParams extends IMenuCreateParams {
   _id: string
 }
 
 // 菜单List
-export interface IMenu extends ICreateMenuParams {
+export interface IMenu extends IMenuCreateParams {
   _id: string
   createTime: string
   buttons?: Array<IMenu>
@@ -84,4 +93,16 @@ export interface IRoleSearchParams extends IPageParams {
 export interface IRoleCreateParams {
   roleName: string
   remark: string
+}
+
+export interface IRoleUpdateParams extends IRoleCreateParams {
+  _id: string
+}
+
+export interface IPermission {
+  _id: string
+  permissionList: {
+    checkedKeys: string[]
+    halfCheckedKeys: string[]
+  }
 }

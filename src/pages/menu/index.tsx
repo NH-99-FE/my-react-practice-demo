@@ -148,7 +148,7 @@ const Menu = () => {
   }
 
   return (
-    <div>
+    <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
         <Form layout="inline" form={form} initialValues={{ menuState: 1 }}>
           <Form.Item name="menuName" label="菜单名称" className="font-bold">
@@ -179,7 +179,7 @@ const Menu = () => {
       </div>
       <Table rowKey="_id" columns={columns} dataSource={data} pagination={false} />
       <CreatMenu ref={menuCreatRef} updateDeptList={getMenuDate} />
-    </div>
+    </>
   )
 }
 

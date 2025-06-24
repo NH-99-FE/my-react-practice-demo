@@ -66,55 +66,53 @@ const CreatDept = ({ ref, updateDeptList }: CreatDeptProps) => {
     setUserList(data)
   }
   return (
-    <>
-      <Modal
-        title={action === 'create' ? '创建部门' : '编辑部门'}
-        open={isModalOpen}
-        width={800}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        cancelText="取消"
-        okText="确认"
-      >
-        <Form labelAlign={'right'} labelCol={{ span: 4 }} form={form} style={{ marginTop: 20 }}>
-          <Form.Item hidden name="_id">
-            <Input type="hidden" />
-          </Form.Item>
-          <Form.Item label="上级部门" name="parentId">
-            <TreeSelect
-              style={{ width: '100%' }}
-              styles={{
-                popup: { root: { maxHeight: 400, overflow: 'auto' } },
-              }}
-              treeData={deptList}
-              placeholder="请选择上级部门"
-              treeDefaultExpandAll
-              fieldNames={{ label: 'deptName', value: '_id' }}
-            />
-          </Form.Item>
-          <Form.Item
-            label="部门名称"
-            name="deptName"
-            rules={[{ required: true, message: '请输入部门名称' }]}
-          >
-            <Input placeholder="请输入部门名称" />
-          </Form.Item>
-          <Form.Item
-            label="负责人"
-            name="userName"
-            rules={[{ required: true, message: '请选择负责人' }]}
-          >
-            <Select>
-              {userList.map(user => (
-                <Select.Option key={user._id} value={user.userName}>
-                  {user.userName}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </>
+    <Modal
+      title={action === 'create' ? '创建部门' : '编辑部门'}
+      open={isModalOpen}
+      width={800}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      cancelText="取消"
+      okText="确认"
+    >
+      <Form labelAlign={'right'} labelCol={{ span: 4 }} form={form} style={{ marginTop: 20 }}>
+        <Form.Item hidden name="_id">
+          <Input type="hidden" />
+        </Form.Item>
+        <Form.Item label="上级部门" name="parentId">
+          <TreeSelect
+            style={{ width: '100%' }}
+            styles={{
+              popup: { root: { maxHeight: 400, overflow: 'auto' } },
+            }}
+            treeData={deptList}
+            placeholder="请选择上级部门"
+            treeDefaultExpandAll
+            fieldNames={{ label: 'deptName', value: '_id' }}
+          />
+        </Form.Item>
+        <Form.Item
+          label="部门名称"
+          name="deptName"
+          rules={[{ required: true, message: '请输入部门名称' }]}
+        >
+          <Input placeholder="请输入部门名称" />
+        </Form.Item>
+        <Form.Item
+          label="负责人"
+          name="userName"
+          rules={[{ required: true, message: '请选择负责人' }]}
+        >
+          <Select>
+            {userList.map(user => (
+              <Select.Option key={user._id} value={user.userName}>
+                {user.userName}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+      </Form>
+    </Modal>
   )
 }
 

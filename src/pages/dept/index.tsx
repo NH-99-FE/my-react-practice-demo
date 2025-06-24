@@ -123,7 +123,7 @@ const Dept = () => {
   }
 
   return (
-    <div>
+    <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
         <Form layout="inline" form={form}>
           <Form.Item name="deptName" label="部门名称" className="font-bold">
@@ -148,7 +148,7 @@ const Dept = () => {
       </div>
       <Table rowKey="_id" columns={columns} dataSource={data} />
       <CreatDept ref={deptCreatRef} updateDeptList={getDeptDate} />
-    </div>
+    </>
   )
 }
 

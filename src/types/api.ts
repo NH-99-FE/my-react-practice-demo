@@ -1,3 +1,8 @@
+interface IPageParams {
+  pageNum: number
+  pageSize: number
+}
+
 export interface ILoginParams {
   username: string
   password: string
@@ -56,4 +61,27 @@ export interface IMenu extends ICreateMenuParams {
 export interface IMenuSearchParams {
   menuName: string
   menuState: number
+}
+
+/*
+ * 角色模块
+ */
+export interface IRole {
+  _id: string
+  roleName: string
+  remark: string
+  permissionList: {
+    checkedKeys: string[]
+    halfCheckedKeys: string[]
+  }
+  createTime: string
+  updateTime: string
+}
+
+export interface IRoleSearchParams extends IPageParams {
+  roleName?: string
+}
+export interface IRoleCreateParams {
+  roleName: string
+  remark: string
 }

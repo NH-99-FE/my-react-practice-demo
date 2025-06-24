@@ -1,11 +1,14 @@
-import { Button, Form, Input, Space, Table, type TableColumnsType } from 'antd'
+import { Button, Form, Input, message, Modal, Space, Table, type TableColumnsType } from 'antd'
 import type { IRole, IRoleSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
 import api from '../../api/roleApi.ts'
 import { useAntdTable } from 'ahooks'
+import CreateRole, { type CreateRoleRef } from './CreateRole.tsx'
+import { useRef } from 'react'
 
 const Role = () => {
   const [form] = Form.useForm()
+  const roleRef = useRef<CreateRoleRef>(null)
 
   const columns: TableColumnsType<IRole> = [
     { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
@@ -48,7 +51,7 @@ const Role = () => {
             <Button
               danger
               onClick={() => {
-                handleDelete(record)
+                handleDelete(record._id)
               }}
             >
               删除
@@ -59,16 +62,34 @@ const Role = () => {
     },
   ]
 
+  const handleCreate = () => {
+    roleRef.current?.showModal('create')
+  }
+
   const handleEdit = (record: IRole) => {
-    console.log(record.roleName)
+    roleRef.current?.showModal('edit', record)
   }
 
   const handleSetPermission = (id: string) => {
     console.log(id)
   }
 
-  const handleDelete = (record: IRole) => {
-    console.log(record.roleName)
+  const handleDelete = (id: string) => {
+    Modal.confirm({
+      title: '删除部门',
+      content: '确认删除该部门吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        handleDelOk(id)
+      },
+    })
+  }
+
+  const handleDelOk = async (id: string) => {
+    await api.deleteRole({ _id: id })
+    message.success('删除成功')
+    submit()
   }
 
   const getRoleDate = async (
@@ -106,13 +127,14 @@ const Role = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">角色列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3">
+          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
           <Button>重置</Button>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} {...tableProps} />
+      <CreateRole ref={roleRef} updateRoleList={submit} />
     </>
   )
 }

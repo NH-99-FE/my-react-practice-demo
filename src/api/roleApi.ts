@@ -23,7 +23,7 @@ export default {
   },
   // 更新角色
   updateRole(params: IRoleUpdateParams) {
-    return request.put<IRole[]>('/roles/edit', params)
+    return request.post<IRole[]>('/roles/edit', params)
   },
   // 更新权限
   updatePermission(params: IPermission) {

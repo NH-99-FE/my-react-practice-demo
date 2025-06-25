@@ -7,6 +7,10 @@ import type {
   IMenuSearchParams,
   IMenuUpdateParams,
   IUser,
+  IUserCreateParams,
+  IUserUpdateParams,
+  IUserSearchParams,
+  ResultDate,
 } from '../types/api.ts'
 import type { IDeptSearchParams } from '../types/api.ts'
 
@@ -35,9 +39,13 @@ export default {
     return request.post('/dept/delete', params)
   },
 
+  /**
+   * 用户模块
+   */
+
   // 获取用户列表
-  getUserList() {
-    return request.get('/users/list')
+  getUserList(params?: IUserSearchParams) {
+    return request.get<ResultDate<IUser>>('/users/list', params)
   },
 
   // 获取所有用户信息
@@ -45,7 +53,22 @@ export default {
     return request.get<IUser[]>('/users/all/list')
   },
 
-  // 菜单模块
+  createUser(params: IUserCreateParams) {
+    return request.post('/users/create', params)
+  },
+
+  updateUser(params: IUserUpdateParams) {
+    return request.post('/users/edit', params)
+  },
+
+  deleteUser(params: { userIds: number[] }) {
+    return request.post('/users/delete', params)
+  },
+
+  /**
+   * 菜单模块
+   */
+
   // 创建菜单
   createMenu(params: IMenuCreateParams) {
     return request.post('/menu/create', params)

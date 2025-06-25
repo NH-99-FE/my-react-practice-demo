@@ -12,7 +12,7 @@ interface CreatDeptProps {
   updateDeptList: () => void
 }
 
-const CreatDept = ({ ref, updateDeptList }: CreatDeptProps) => {
+const DeptModal = ({ ref, updateDeptList }: CreatDeptProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [deptList, setDeptList] = useState<IDept[]>([])
   const [userList, setUserList] = useState<IUser[]>([])
@@ -116,4 +116,4 @@ const CreatDept = ({ ref, updateDeptList }: CreatDeptProps) => {
   )
 }
 
-export default CreatDept
+export default DeptModal

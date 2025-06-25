@@ -14,7 +14,7 @@ interface SetPermissionProps {
   updateRoleList: () => void
 }
 
-const SetPermission = ({ ref, updateRoleList }: SetPermissionProps) => {
+const PermissionModal = ({ ref, updateRoleList }: SetPermissionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [form] = Form.useForm()
   const [checkedKeys, setCheckedKeys] = useState<string[]>([])
@@ -117,4 +117,4 @@ const SetPermission = ({ ref, updateRoleList }: SetPermissionProps) => {
   )
 }
 
-export default SetPermission
+export default PermissionModal

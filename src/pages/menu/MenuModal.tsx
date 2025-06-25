@@ -13,7 +13,7 @@ interface CreatMenuProps {
   updateDeptList: () => void
 }
 
-const CreatMenu = ({ ref, updateDeptList }: CreatMenuProps) => {
+const MenuModal = ({ ref, updateDeptList }: CreatMenuProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [menuList, setMenuList] = useState<IMenu[]>([])
   const [action, setAction] = useState<string>('create')
@@ -143,4 +143,4 @@ const CreatMenu = ({ ref, updateDeptList }: CreatMenuProps) => {
   )
 }
 
-export default CreatMenu
+export default MenuModal

@@ -5,7 +5,7 @@ import type { IMenu } from '../../types/api.ts'
 import api from '../../api'
 import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
-import CreatMenu, { type CreateMenu } from './CreatMenu.tsx'
+import MenuModal, { type CreateMenu } from './MenuModal.tsx'
 
 const Menu = () => {
   const [data, setData] = useState<IMenu[]>([])
@@ -178,7 +178,7 @@ const Menu = () => {
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} pagination={false} />
-      <CreatMenu ref={menuCreatRef} updateDeptList={getMenuDate} />
+      <MenuModal ref={menuCreatRef} updateDeptList={getMenuDate} />
     </>
   )
 }

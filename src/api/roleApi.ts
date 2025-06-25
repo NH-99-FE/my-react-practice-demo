@@ -13,6 +13,10 @@ export default {
   getRoleList(params: IRoleSearchParams) {
     return request.get<ResultDate<IRole>>('/roles/list', params)
   },
+  // 获取所有角色
+  getAllRoleList() {
+    return request.get<ResultDate<IRole>>('/roles/allList', {})
+  },
   // 创建角色
   createRole(params: IRoleCreateParams) {
     return request.post<IRole[]>('/roles/create', params)

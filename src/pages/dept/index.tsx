@@ -5,7 +5,7 @@ import type { IDept } from '../../types/api.ts'
 import api from '../../api'
 import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
-import CreatDept, { type CreateDept } from './CreatDept.tsx'
+import DeptModal, { type CreateDept } from './DeptModal.tsx'
 
 const Dept = () => {
   const [data, setData] = useState<IDept[]>([])
@@ -147,7 +147,7 @@ const Dept = () => {
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} />
-      <CreatDept ref={deptCreatRef} updateDeptList={getDeptDate} />
+      <DeptModal ref={deptCreatRef} updateDeptList={getDeptDate} />
     </>
   )
 }

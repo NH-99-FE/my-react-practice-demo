@@ -3,8 +3,8 @@ import type { IRole, IRoleSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
 import api from '../../api/roleApi.ts'
 import { useAntdTable } from 'ahooks'
-import CreateRole, { type CreateRoleRef } from './CreateRole.tsx'
-import SetPermission, { type SetPermissionRef } from './SetPermission.tsx'
+import CreateRole, { type CreateRoleRef } from './RoleModal.tsx'
+import PermissionModal, { type SetPermissionRef } from './PermissionModal.tsx'
 import { useRef } from 'react'
 
 const Role = () => {
@@ -137,7 +137,7 @@ const Role = () => {
       </div>
       <Table bordered rowKey="_id" columns={columns} {...tableProps} />
       <CreateRole ref={roleRef} updateRoleList={submit} />
-      <SetPermission ref={permissionRef} updateRoleList={submit} />
+      <PermissionModal ref={permissionRef} updateRoleList={submit} />
     </>
   )
 }

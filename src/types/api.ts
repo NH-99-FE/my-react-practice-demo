@@ -32,11 +32,44 @@ export interface IDept {
 }
 
 // 用户模块
+// 用户列表
 export interface IUser {
   _id: string
   userName: string
-  userId: string
+  userId: number
   userEmail: string
+  deptId: string
+  job: string
+  mobile: string
+  role: number
+  roleList: string
+  state: number
+  userImg: string
+  sex: number
+  deptName: string
+  createId: number
+  createTime: string
+}
+
+export interface IUserSearchParams extends IPageParams {
+  userId?: string
+  userName?: string
+  state?: number
+}
+
+// 创建用户
+export interface IUserCreateParams {
+  userName: string
+  userEmail: string
+  deptId: string
+  job?: string
+  mobile?: string
+  state?: number
+  role: number
+  roleList: string
+}
+export interface IUserUpdateParams extends IUserCreateParams {
+  userId?: string
 }
 
 // 菜单模块
@@ -66,7 +99,7 @@ export interface IMenu extends IMenuCreateParams {
   children?: Array<IMenu>
 }
 
-// 搜索参数
+// 搜索
 export interface IMenuSearchParams {
   menuName: string
   menuState: number

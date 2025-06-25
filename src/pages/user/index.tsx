@@ -1,4 +1,14 @@
-import { Button, Form, Input, message, Modal, Space, Table, type TableColumnsType } from 'antd'
+import {
+  Button,
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Space,
+  Table,
+  type TableColumnsType,
+} from 'antd'
 import api from '../../api'
 import { useAntdTable } from 'ahooks'
 import { useRef, useState } from 'react'
@@ -16,8 +26,31 @@ const User = () => {
     { title: '用户ID', dataIndex: 'userId', key: 'userId' },
     { title: '用户名称', dataIndex: 'userName', key: 'userName' },
     { title: '用户邮箱', dataIndex: 'userEmail', key: 'userEmail' },
-    { title: '用户角色', dataIndex: 'role', key: 'role' },
-    { title: '用户状态', dataIndex: 'state', key: 'state' },
+    {
+      title: '系统角色',
+      dataIndex: 'role',
+      key: 'role',
+      render: (text: number) => {
+        return {
+          0: '超级管理员',
+          1: '管理员',
+          2: '体验管理员',
+          3: '普通用户',
+        }[text]
+      },
+    },
+    {
+      title: '用户状态',
+      dataIndex: 'state',
+      key: 'state',
+      render: (text: number) => {
+        return {
+          1: '在职',
+          2: '离职',
+          3: '试用期',
+        }[text]
+      },
+    },
     {
       title: '注册时间',
       dataIndex: 'createTime',
@@ -27,7 +60,6 @@ const User = () => {
     {
       title: '操作',
       key: 'action',
-      width: '200',
       render: (_, record) => {
         return (
           <Space>
@@ -54,6 +86,7 @@ const User = () => {
   ]
 
   const handleEdit = (record: IUser) => {
+    console.log(record)
     userRef.current?.showModal('edit', record)
   }
 
@@ -119,8 +152,19 @@ const User = () => {
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
         <Form layout="inline" form={form}>
-          <Form.Item name="deptName" label="用户名称" className="font-bold">
+          <Form.Item name="userId" label="用户ID" className="font-bold">
+            <Input placeholder="请输入用户ID" className="font-medium" />
+          </Form.Item>
+          <Form.Item name="userName" label="用户名称" className="font-bold">
             <Input placeholder="请输入用户名称" className="font-medium" />
+          </Form.Item>
+          <Form.Item name="state" label="状态" className="font-bold">
+            <Select placeholder="请选择用户状态" defaultValue={1} style={{ width: 100 }}>
+              <Select.Option value={0}>所有</Select.Option>
+              <Select.Option value={1}>在职</Select.Option>
+              <Select.Option value={2}>离职</Select.Option>
+              <Select.Option value={3}>实习期</Select.Option>
+            </Select>
           </Form.Item>
           <Form.Item>
             <Button type="primary" className="mr-5" onClick={submit}>

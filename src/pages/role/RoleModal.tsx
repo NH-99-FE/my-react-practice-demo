@@ -26,7 +26,7 @@ const CreatMenu = ({ ref, updateRoleList }: CreatMenuProps) => {
   }
 
   const handleOk = async () => {
-    const valid = form.validateFields()
+    const valid = await form.validateFields()
     if (!valid) return
     if (action === 'create') {
       await api.createRole(form.getFieldsValue())

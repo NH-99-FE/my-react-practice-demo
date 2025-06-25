@@ -15,7 +15,7 @@ export default {
   },
   // 获取所有角色
   getAllRoleList() {
-    return request.get<ResultDate<IRole>>('/roles/allList', {})
+    return request.get<IRole[]>('/roles/allList', {})
   },
   // 创建角色
   createRole(params: IRoleCreateParams) {

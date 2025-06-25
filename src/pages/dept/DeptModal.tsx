@@ -33,7 +33,7 @@ const DeptModal = ({ ref, updateDeptList }: CreatDeptProps) => {
   }
 
   const handleOk = async () => {
-    const valid = form.validateFields()
+    const valid = await form.validateFields()
     if (!valid) return
     if (action === 'create') {
       await api.createDept(form.getFieldsValue())

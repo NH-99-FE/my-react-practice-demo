@@ -29,7 +29,7 @@ const MenuModal = ({ ref, updateDeptList }: CreatMenuProps) => {
   }
 
   const handleOk = async () => {
-    const valid = form.validateFields()
+    const valid = await form.validateFields()
     if (!valid) return
     if (action === 'create') {
       await api.createMenu(form.getFieldsValue())

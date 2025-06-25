@@ -1,5 +1,5 @@
 import { Form, Input, InputNumber, message, Modal, Radio, TreeSelect } from 'antd'
-import { type RefObject, useEffect, useImperativeHandle, useState } from 'react'
+import { type RefObject, useImperativeHandle, useState } from 'react'
 import api from '../../api'
 import type { IMenu } from '../../types/api.ts'
 import { InfoCircleOutlined } from '@ant-design/icons'
@@ -18,8 +18,6 @@ const MenuModal = ({ ref, updateDeptList }: CreatMenuProps) => {
   const [menuList, setMenuList] = useState<IMenu[]>([])
   const [action, setAction] = useState<string>('create')
   const [form] = Form.useForm()
-
-  useEffect(() => {}, [])
 
   const showModal = (type: 'create' | 'edit', data?: IMenu | { parentId: string }) => {
     setAction(type)

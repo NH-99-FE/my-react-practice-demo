@@ -1,13 +1,16 @@
 import { Button, Form, Input, message, Modal, Space, Table, type TableColumnsType } from 'antd'
 import api from '../../api'
 import { useAntdTable } from 'ahooks'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import type { IUser, IUserSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
+import UserModal, { type UserRef } from './UserModal.tsx'
 
 const User = () => {
   const [form] = Form.useForm()
   const [userIds, setUserIds] = useState<number[]>([])
+
+  const userRef = useRef<UserRef>(null)
 
   const columns: TableColumnsType<IUser> = [
     { title: '用户ID', dataIndex: 'userId', key: 'userId' },
@@ -51,7 +54,7 @@ const User = () => {
   ]
 
   const handleEdit = (record: IUser) => {
-    console.log(record)
+    userRef.current?.showModal('edit', record)
   }
 
   const handleSingleDelete = (userId: number) => {
@@ -90,6 +93,10 @@ const User = () => {
     reset()
   }
 
+  const handleCreate = () => {
+    userRef.current?.showModal('create')
+  }
+
   const getUserData = async (
     { current, pageSize }: { current: number; pageSize: number },
     formData: IUserSearchParams
@@ -126,7 +133,7 @@ const User = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">用户列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3" onClick={submit}>
+          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
 
@@ -153,6 +160,7 @@ const User = () => {
         columns={columns}
         {...tableProps}
       />
+      <UserModal ref={userRef} updateUserList={submit} />
     </>
   )
 }

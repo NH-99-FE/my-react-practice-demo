@@ -15,6 +15,7 @@ import { useRef, useState } from 'react'
 import type { IUser, IUserSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
 import UserModal, { type UserRef } from './UserModal.tsx'
+import SearchForm from '../../components/SearchForm.tsx'
 
 const User = () => {
   const [form] = Form.useForm()
@@ -151,7 +152,7 @@ const User = () => {
   return (
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
-        <Form layout="inline" form={form}>
+        <SearchForm form={form} submit={submit} reset={reset}>
           <Form.Item name="userId" label="用户ID" className="font-bold">
             <Input placeholder="请输入用户ID" className="font-medium" />
           </Form.Item>
@@ -166,13 +167,7 @@ const User = () => {
               <Select.Option value={3}>实习期</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" className="mr-5" onClick={submit}>
-              查询
-            </Button>
-            <Button onClick={reset}>重置</Button>
-          </Form.Item>
-        </Form>
+        </SearchForm>
       </div>
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">用户列表：</div>

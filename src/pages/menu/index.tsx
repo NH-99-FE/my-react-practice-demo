@@ -6,6 +6,7 @@ import api from '../../api'
 import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
 import MenuModal, { type CreateMenu } from './MenuModal.tsx'
+import SearchForm from '../../components/SearchForm.tsx'
 
 const Menu = () => {
   const [data, setData] = useState<IMenu[]>([])
@@ -150,7 +151,12 @@ const Menu = () => {
   return (
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
-        <Form layout="inline" form={form} initialValues={{ menuState: 1 }}>
+        <SearchForm
+          form={form}
+          initialValues={{ menuState: 1 }}
+          submit={getMenuDate}
+          reset={handleReset}
+        >
           <Form.Item name="menuName" label="菜单名称" className="font-bold">
             <Input placeholder="请输入菜单名称" className="font-medium" />
           </Form.Item>
@@ -160,13 +166,7 @@ const Menu = () => {
               <Select.Option value={2}>禁止</Select.Option>
             </Select>
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" className="mr-5" onClick={getMenuDate}>
-              查询
-            </Button>
-            <Button onClick={handleReset}>重置</Button>
-          </Form.Item>
-        </Form>
+        </SearchForm>
       </div>
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">菜单列表：</div>
@@ -174,7 +174,6 @@ const Menu = () => {
           <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
-          <Button>重置</Button>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} pagination={false} />

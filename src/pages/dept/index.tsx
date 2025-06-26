@@ -6,6 +6,7 @@ import api from '../../api'
 import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
 import DeptModal, { type CreateDept } from './DeptModal.tsx'
+import SearchForm from '../../components/SearchForm.tsx'
 
 const Dept = () => {
   const [data, setData] = useState<IDept[]>([])
@@ -125,17 +126,11 @@ const Dept = () => {
   return (
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
-        <Form layout="inline" form={form}>
+        <SearchForm form={form} submit={getDeptDate} reset={handleReset}>
           <Form.Item name="deptName" label="部门名称" className="font-bold">
             <Input placeholder="请输入部门名称" className="font-medium" />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" className="mr-5" onClick={getDeptDate}>
-              查询
-            </Button>
-            <Button onClick={handleReset}>重置</Button>
-          </Form.Item>
-        </Form>
+        </SearchForm>
       </div>
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">部门列表：</div>
@@ -143,7 +138,6 @@ const Dept = () => {
           <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
-          <Button>重置</Button>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} />

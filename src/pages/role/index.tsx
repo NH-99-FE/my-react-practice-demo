@@ -6,6 +6,7 @@ import { useAntdTable } from 'ahooks'
 import CreateRole, { type CreateRoleRef } from './RoleModal.tsx'
 import PermissionModal, { type SetPermissionRef } from './PermissionModal.tsx'
 import { useRef } from 'react'
+import SearchForm from '../../components/SearchForm.tsx'
 
 const Role = () => {
   const [form] = Form.useForm()
@@ -114,17 +115,11 @@ const Role = () => {
   return (
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
-        <Form layout="inline" form={form}>
+        <SearchForm form={form} submit={submit} reset={reset}>
           <Form.Item name="roleName" label="角色名称" className="font-bold">
             <Input placeholder="请输入角色名称" className="font-medium" />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" className="mr-5" onClick={submit}>
-              查询
-            </Button>
-            <Button onClick={reset}>重置</Button>
-          </Form.Item>
-        </Form>
+        </SearchForm>
       </div>
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">角色列表：</div>
@@ -132,7 +127,6 @@ const Role = () => {
           <Button type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
           </Button>
-          <Button>重置</Button>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} {...tableProps} />

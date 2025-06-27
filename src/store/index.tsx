@@ -1,14 +1,25 @@
 import { create } from 'zustand'
 import type { IUser } from '../types/api.ts'
+import storage from '../utils/storage.ts'
+
+type Theme = 'dark' | 'light'
 
 interface Store {
   collapsed: boolean
   currentMenu: string
   userInfo: IUser
+  currentTheme: Theme
   updateCollapsed: () => void
   setCurrentMenu: (newMenu: string) => void
   updateUserInfo: (userInfo: IUser) => void
+  setTheme: (theme: Theme) => void
 }
+
+const getInitialTheme = (): Theme => {
+  // 先从 localStorage 读取，没有就用 'light'
+  return (storage.get('theme') as Theme) || 'light'
+}
+
 const defaultUserInfo = {
   _id: '',
   userName: '',
@@ -30,10 +41,12 @@ const defaultUserInfo = {
 const useStore = create<Store>(set => ({
   collapsed: false,
   currentMenu: 'dashboard',
+  currentTheme: getInitialTheme(),
   userInfo: defaultUserInfo,
   updateCollapsed: () => set(state => ({ collapsed: !state.collapsed })),
   setCurrentMenu: (newMenu: string) => set({ currentMenu: newMenu }),
   updateUserInfo: (userInfo: IUser) => set({ userInfo }),
+  setTheme: (theme: Theme) => set({ currentTheme: theme }),
 }))
 
 export default useStore

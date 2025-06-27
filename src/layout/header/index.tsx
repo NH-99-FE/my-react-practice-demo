@@ -1,8 +1,9 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import type { MenuProps } from 'antd'
+import { type MenuProps, Switch } from 'antd'
 import { Button, Dropdown } from 'antd'
 import storage from '../../utils/storage.ts'
 import useStore from '../../store'
+import { useEffect } from 'react'
 
 const items: MenuProps['items'] = [
   {
@@ -14,18 +15,38 @@ const items: MenuProps['items'] = [
     label: '退出',
   },
 ]
-const onClick = ({ key }: { key: string }) => {
-  if (key === 'logout') {
-    // 退出登录
-    storage.remove('token')
-    window.location.href = '/login'
-  }
-}
+
 const NavHeader = () => {
-  const { collapsed, updateCollapsed } = useStore()
+  const { collapsed, updateCollapsed, currentTheme, setTheme } = useStore()
+
+  useEffect(() => {
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    } else {
+      document.documentElement.removeAttribute('data-theme')
+    }
+  }, [currentTheme])
+
+  const onClick = ({ key }: { key: string }) => {
+    if (key === 'logout') {
+      // 退出登录
+      storage.remove('token')
+      window.location.href = '/login'
+    }
+  }
 
   const toggleCollapsed = () => {
     updateCollapsed()
+  }
+
+  const handleSwitch = () => {
+    if (currentTheme === 'light') {
+      setTheme('dark')
+      storage.set('theme', 'dark')
+    } else {
+      setTheme('light')
+      storage.set('theme', 'light')
+    }
   }
 
   return (
@@ -42,7 +63,12 @@ const NavHeader = () => {
           }}
         />
       </div>
-      <div>
+      <div className="flex items-center justify-between">
+        <Switch
+          onChange={handleSwitch}
+          style={{ marginRight: 10 }}
+          checked={currentTheme === 'dark'}
+        />
         <Dropdown menu={{ items, onClick }} trigger={['click']}>
           <span className="mr-2 cursor-pointer text-lg">jack</span>
         </Dropdown>

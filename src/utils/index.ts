@@ -12,3 +12,13 @@ export function formatDate(isoString: string): string {
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
+
+export function formatState(state: number) {
+  if (state === 1) {
+    return '在职'
+  } else if (state === 2) {
+    return '试用期'
+  } else {
+    return '离职'
+  }
+}

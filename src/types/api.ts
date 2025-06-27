@@ -139,3 +139,35 @@ export interface IPermission {
     halfCheckedKeys: string[]
   }
 }
+
+/**
+ * dashboard模块
+ */
+export interface IReportData {
+  codeLine: number
+  salary: number
+  icafeCount: number
+  projectNum: number
+}
+
+export interface ILineData {
+  label: Array<string>
+  order: Array<number>
+  money: Array<number>
+}
+
+export interface IPieData {
+  value: number
+  name: string
+}
+
+export interface IRadarData {
+  indicator: Array<{
+    name: string
+    max: number
+  }>
+  data: {
+    value: Array<number>
+    name: string
+  }
+}

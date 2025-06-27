@@ -13,7 +13,7 @@ const Dept = () => {
   const [form] = Form.useForm()
   const deptCreatRef = useRef<CreateDept>(null)
   useEffect(() => {
-    getDeptDate()
+    getDeptData()
   }, [])
 
   const columns: TableColumnsType<IDept> = [
@@ -83,7 +83,7 @@ const Dept = () => {
   ]
 
   // 获取部门列表
-  const getDeptDate = async () => {
+  const getDeptData = async () => {
     const data = await api.getDeptmentList(form.getFieldsValue())
     setData(data)
   }
@@ -111,12 +111,12 @@ const Dept = () => {
   const handleDelOk = async (id: string) => {
     await api.deleteDept({ _id: id })
     message.success('删除成功')
-    getDeptDate()
+    getDeptData()
   }
 
   const handleReset = () => {
     form.resetFields()
-    getDeptDate()
+    getDeptData()
   }
 
   const handleCreate = () => {
@@ -126,7 +126,7 @@ const Dept = () => {
   return (
     <>
       <div className="rounded-md bg-white px-4 py-2 dark:bg-gray-800">
-        <SearchForm form={form} submit={getDeptDate} reset={handleReset}>
+        <SearchForm form={form} submit={getDeptData} reset={handleReset}>
           <Form.Item name="deptName" label="部门名称" className="font-bold">
             <Input placeholder="请输入部门名称" className="font-medium" />
           </Form.Item>
@@ -141,7 +141,7 @@ const Dept = () => {
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} />
-      <DeptModal ref={deptCreatRef} updateDeptList={getDeptDate} />
+      <DeptModal ref={deptCreatRef} updateDeptList={getDeptData} />
     </>
   )
 }

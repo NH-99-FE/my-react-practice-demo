@@ -159,8 +159,8 @@ const User = () => {
           <Form.Item name="userName" label="用户名称" className="font-bold">
             <Input placeholder="请输入用户名称" className="font-medium" />
           </Form.Item>
-          <Form.Item name="state" label="状态" className="font-bold">
-            <Select placeholder="请选择用户状态" defaultValue={1} style={{ width: 100 }}>
+          <Form.Item name="state" label="状态" className="font-bold" initialValue={1}>
+            <Select placeholder="请选择用户状态" style={{ width: 100 }}>
               <Select.Option value={0}>所有</Select.Option>
               <Select.Option value={1}>在职</Select.Option>
               <Select.Option value={2}>离职</Select.Option>

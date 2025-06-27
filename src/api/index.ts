@@ -11,6 +11,10 @@ import type {
   IUserUpdateParams,
   IUserSearchParams,
   ResultDate,
+  IReportData,
+  ILineData,
+  IPieData,
+  IRadarData,
 } from '../types/api.ts'
 import type { IDeptSearchParams } from '../types/api.ts'
 
@@ -42,6 +46,12 @@ export default {
   /**
    * 用户模块
    */
+
+  // 获取当前用户信息
+
+  getUser() {
+    return request.get<IUser>('/users/getUserInfo')
+  },
 
   // 获取用户列表
   getUserList(params?: IUserSearchParams) {
@@ -87,5 +97,28 @@ export default {
   // 删除菜单
   deleteMenu(params: { _id: string }) {
     return request.post('/menu/delete', params)
+  },
+
+  /**
+   * dashboard模块
+   */
+  getReportData() {
+    return request.get<IReportData>('/order/dashboard/getReportData')
+  },
+
+  getLineData() {
+    return request.get<ILineData>('/order/dashboard/getLineData')
+  },
+
+  getPieCityData() {
+    return request.get<IPieData>('/order/dashboard/getPieCityData')
+  },
+
+  getPieAgeData() {
+    return request.get<IPieData>('/order/dashboard/getPieCityData')
+  },
+
+  getRadarData() {
+    return request.get<IRadarData>('/order/dashboard/getRadarData')
   },
 }

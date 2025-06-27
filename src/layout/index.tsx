@@ -4,10 +4,20 @@ import NavHeader from './header'
 import Footer from './footer'
 import useStore from '../store'
 import SiderMenu from './menu'
+import api from '../api'
+import { useEffect } from 'react'
 const { Sider } = Layout
 
 const LayoutPage = () => {
-  const { collapsed } = useStore()
+  const { collapsed, updateUserInfo } = useStore()
+
+  useEffect(() => {
+    getUserInfo()
+  }, [])
+  const getUserInfo = async () => {
+    const data = await api.getUser()
+    updateUserInfo(data)
+  }
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>

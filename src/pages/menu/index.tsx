@@ -10,6 +10,7 @@ import SearchForm from '../../components/SearchForm.tsx'
 
 const Menu = () => {
   const [data, setData] = useState<IMenu[]>([])
+  const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const menuCreatRef = useRef<CreateMenu>(null)
   useEffect(() => {
@@ -107,10 +108,12 @@ const Menu = () => {
     },
   ]
 
-  // 获取部门列表
+  // 获取菜单列表
   const getMenuDate = async () => {
+    setLoading(true)
     const data = await api.getMenuList(form.getFieldsValue())
     setData(data)
+    setLoading(false)
   }
 
   const handleSubCreate = (id: string) => {
@@ -176,7 +179,14 @@ const Menu = () => {
           </Button>
         </div>
       </div>
-      <Table bordered rowKey="_id" columns={columns} dataSource={data} pagination={false} />
+      <Table
+        bordered
+        rowKey="_id"
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        loading={loading}
+      />
       <MenuModal ref={menuCreatRef} updateDeptList={getMenuDate} />
     </>
   )

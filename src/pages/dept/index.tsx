@@ -10,6 +10,7 @@ import SearchForm from '../../components/SearchForm.tsx'
 
 const Dept = () => {
   const [data, setData] = useState<IDept[]>([])
+  const [loading, setLoading] = useState(false)
   const [form] = Form.useForm()
   const deptCreatRef = useRef<CreateDept>(null)
   useEffect(() => {
@@ -84,8 +85,10 @@ const Dept = () => {
 
   // 获取部门列表
   const getDeptData = async () => {
+    setLoading(true)
     const data = await api.getDeptmentList(form.getFieldsValue())
     setData(data)
+    setLoading(false)
   }
 
   const handleSubCreate = (id: string) => {
@@ -140,7 +143,7 @@ const Dept = () => {
           </Button>
         </div>
       </div>
-      <Table bordered rowKey="_id" columns={columns} dataSource={data} />
+      <Table bordered rowKey="_id" columns={columns} dataSource={data} loading={loading} />
       <DeptModal ref={deptCreatRef} updateDeptList={getDeptData} />
     </>
   )

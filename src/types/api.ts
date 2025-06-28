@@ -83,7 +83,7 @@ export interface IMenuCreateParams {
   menuCode: string // 菜单权限标示
   parentId: string
   component: string // 组件名称
-  menuStatus: number // 菜单状态: 1:启用 2:禁用
+  menuState: number // 菜单状态: 1:启用 2:禁用
 }
 
 // 更新菜单参数

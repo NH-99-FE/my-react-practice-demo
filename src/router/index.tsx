@@ -5,6 +5,7 @@ import AuthLoader from './AuthLoader.ts'
 
 const router = createBrowserRouter([
   {
+    id: 'layout',
     Component: LayoutPage,
     loader: async () => {
       return AuthLoader()

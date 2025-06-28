@@ -6,11 +6,9 @@ type Theme = 'dark' | 'light'
 
 interface Store {
   collapsed: boolean
-  currentMenu: string
   userInfo: IUser
   currentTheme: Theme
   updateCollapsed: () => void
-  setCurrentMenu: (newMenu: string) => void
   updateUserInfo: (userInfo: IUser) => void
   setTheme: (theme: Theme) => void
 }
@@ -40,11 +38,9 @@ const defaultUserInfo = {
 
 const useStore = create<Store>(set => ({
   collapsed: false,
-  currentMenu: 'dashboard',
   currentTheme: getInitialTheme(),
   userInfo: defaultUserInfo,
   updateCollapsed: () => set(state => ({ collapsed: !state.collapsed })),
-  setCurrentMenu: (newMenu: string) => set({ currentMenu: newMenu }),
   updateUserInfo: (userInfo: IUser) => set({ userInfo }),
   setTheme: (theme: Theme) => set({ currentTheme: theme }),
 }))

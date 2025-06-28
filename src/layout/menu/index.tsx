@@ -1,39 +1,69 @@
 import { Menu } from 'antd'
-import {
-  UserOutlined,
-  MenuOutlined,
-  UsergroupAddOutlined,
-  PieChartOutlined,
-  SolutionOutlined,
-  LaptopOutlined,
-} from '@ant-design/icons'
+import * as Icons from '@ant-design/icons'
+
 import type { MenuProps } from 'antd'
 import useStore from '../../store'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate, useRouteLoaderData } from 'react-router'
+import React, { useEffect, useState } from 'react'
+import type { IMenu } from '../../types/api.ts'
 type MenuItem = Required<MenuProps>['items'][number]
 
-const items: MenuItem[] = [
-  { key: '/dashboard', icon: <PieChartOutlined />, label: 'Dashboard' },
-  {
-    key: '/user',
-    label: '用户模块',
-    icon: <UsergroupAddOutlined />,
-    children: [
-      { key: '/userList', label: '用户列表', icon: <UserOutlined /> },
-      { key: '/menuList', label: '菜单管理', icon: <MenuOutlined /> },
-      { key: '/roleList', label: '角色管理', icon: <SolutionOutlined /> },
-      { key: '/deptList', label: '部门管理', icon: <LaptopOutlined /> },
-    ],
-  },
-]
-
 const SiderMenu = () => {
-  const { collapsed, currentMenu, setCurrentMenu } = useStore()
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+  const [menuItem, setMenuItem] = useState<MenuItem[]>([])
+  const data = useRouteLoaderData('layout')
+  const { collapsed, currentTheme } = useStore()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const menuClick = ({ key }: { key: string }) => {
     navigate(key)
-    setCurrentMenu(key)
+    setSelectedKeys([key])
   }
+
+  useEffect(() => {
+    const treeMenuList = getMenuTree(data.menuList)
+    setMenuItem(treeMenuList)
+    setSelectedKeys([pathname])
+  }, [])
+
+  function getItem(label: string, key: string, icon?: React.ReactNode, children?: MenuItem[]) {
+    return {
+      label,
+      key,
+      icon,
+      children,
+    } as MenuItem
+  }
+
+  const createIcon = (name?: string) => {
+    if (!name) return <></>
+    const customerIcons: { [key: string]: any } = Icons
+    const icon = customerIcons[name]
+    if (!icon) return <></>
+    return React.createElement(icon)
+  }
+
+  const getMenuTree = (menuList: IMenu[], menuTree: MenuItem[] = []): MenuItem[] => {
+    menuList.forEach(item => {
+      if (item.menuType === 1 && item.menuState === 1) {
+        if (item.buttons) {
+          return menuTree.push(getItem(item.menuName, item.path, createIcon(item.icon)))
+        }
+        menuTree.push(
+          getItem(
+            item.menuName,
+            item.path,
+            createIcon(item.icon),
+            getMenuTree(item.children || [], [])
+          )
+        )
+      }
+    })
+    return menuTree
+  }
+
+  console.log('menuItem', menuItem)
+
   return (
     <>
       <div className="flex items-center justify-center px-5 py-3">
@@ -45,12 +75,11 @@ const SiderMenu = () => {
         )}
       </div>
       <Menu
-        defaultSelectedKeys={[currentMenu]}
-        defaultOpenKeys={['/user']}
         mode="inline"
-        theme="dark"
+        theme={currentTheme === 'dark' ? 'light' : 'dark'}
         inlineCollapsed={collapsed}
-        items={items}
+        items={menuItem}
+        selectedKeys={selectedKeys}
         onClick={menuClick}
       />
     </>

@@ -1,4 +1,6 @@
 // 日期格式化
+import type { IMenu } from '../types/api.ts'
+
 export function formatDate(isoString: string): string {
   const date = new Date(isoString)
 
@@ -21,4 +23,13 @@ export function formatState(state: number) {
   } else {
     return '离职'
   }
+}
+
+// 获取菜单的path
+export function getMenuPath(menuList: IMenu[]): string[] {
+  return menuList.reduce((res: string[], item: IMenu) => {
+    return res.concat(
+      Array.isArray(item.children) && !item.buttons ? getMenuPath(item.children) : item.path + ''
+    )
+  }, [])
 }

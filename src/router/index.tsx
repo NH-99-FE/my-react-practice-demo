@@ -1,46 +1,56 @@
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, Navigate } from 'react-router'
 import Login from '../pages/login'
-import Welcome from '../pages/welcome'
 import LayoutPage from '../layout'
-import Dashboard from '../pages/dashboard'
-import User from '../pages/user'
-import Dept from '../pages/dept'
-import Menu from '../pages/menu'
-import Role from '../pages/role'
+import AuthLoader from './AuthLoader.ts'
 
 const router = createBrowserRouter([
   {
     Component: LayoutPage,
+    loader: async () => {
+      return AuthLoader()
+    },
     children: [
       {
-        path: '/',
-        Component: Welcome,
+        path: '/welcome',
+        lazy: async () => ({ Component: (await import('../pages/welcome')).default }),
       },
       {
         path: 'dashboard',
-        Component: Dashboard,
+        lazy: async () => ({ Component: (await import('../pages/dashboard')).default }),
       },
       {
         path: 'userList',
-        Component: User,
+        lazy: async () => ({ Component: (await import('../pages/user')).default }),
       },
       {
         path: 'deptList',
-        Component: Dept,
+        lazy: async () => ({ Component: (await import('../pages/dept')).default }),
       },
       {
         path: 'menuList',
-        Component: Menu,
+        lazy: async () => ({ Component: (await import('../pages/menu')).default }),
       },
       {
         path: 'roleList',
-        Component: Role,
+        lazy: async () => ({ Component: (await import('../pages/role')).default }),
       },
     ],
   },
   {
     path: '/login',
     Component: Login,
+  },
+  {
+    path: '/',
+    Component: () => <Navigate to="/welcome" replace />,
+  },
+  {
+    path: '/403',
+    lazy: async () => ({ Component: (await import('../pages/403.tsx')).default }),
+  },
+  {
+    path: '*',
+    lazy: async () => ({ Component: (await import('../pages/NotFound.tsx')).default }),
   },
 ])
 

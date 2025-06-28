@@ -121,4 +121,8 @@ export default {
   getRadarData() {
     return request.get<IRadarData>('/order/dashboard/getRadarData')
   },
+
+  getPermissionList() {
+    return request.get<{ menuList: IMenu[]; buttonList: string[] }>('/users/getPermissionList')
+  },
 }

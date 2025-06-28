@@ -1,4 +1,4 @@
-import { Layout } from 'antd'
+import { Layout, Watermark } from 'antd'
 import { Navigate, Outlet } from 'react-router'
 import NavHeader from './header'
 import Footer from './footer'
@@ -32,20 +32,22 @@ const LayoutPage = () => {
   }
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <SiderMenu />
-      </Sider>
+    <Watermark content="llh's react practice">
       <Layout>
-        <NavHeader />
-        <Content style={{ overflow: 'auto', height: 'calc(100vh - 60px)', padding: '20px' }}>
-          <div>
-            <Outlet />
-          </div>
-          <Footer />
-        </Content>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+          <SiderMenu />
+        </Sider>
+        <Layout>
+          <NavHeader />
+          <Content style={{ overflow: 'auto', height: 'calc(100vh - 60px)', padding: '20px' }}>
+            <div>
+              <Outlet />
+            </div>
+            <Footer />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </Watermark>
   )
 }
 export default LayoutPage

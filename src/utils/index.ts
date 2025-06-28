@@ -33,3 +33,20 @@ export function getMenuPath(menuList: IMenu[]): string[] {
     )
   }, [])
 }
+
+// 获取面包屑items
+export function getBreadItems(menuList: IMenu[], pathname: string, path: string[]): string[] {
+  if (!menuList) return []
+  for (const menu of menuList) {
+    path.push(menu.menuName)
+    if (menu.path === pathname) {
+      return [...path]
+    }
+    if (menu.children?.length) {
+      const list = getBreadItems(menu.children, pathname, path)
+      if (list.length) return list
+    }
+    path.pop()
+  }
+  return []
+}

@@ -4,6 +4,7 @@ import { Button, Dropdown } from 'antd'
 import storage from '../../utils/storage.ts'
 import useStore from '../../store'
 import { useEffect } from 'react'
+import BreadCrumb from './BreadCrumb.tsx'
 
 const items: MenuProps['items'] = [
   {
@@ -51,7 +52,7 @@ const NavHeader = () => {
 
   return (
     <div className="flex h-15 items-center justify-between bg-white px-5 dark:bg-gray-800">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <Button
           type="text"
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -62,6 +63,7 @@ const NavHeader = () => {
             height: 64,
           }}
         />
+        <BreadCrumb></BreadCrumb>
       </div>
       <div className="flex items-center justify-between">
         <Switch

@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Space } from 'antd'
+import { Form, Input, message, Modal, Space } from 'antd'
 import { Table } from 'antd'
 import type { TableColumnsType } from 'antd'
 import type { IDept } from '../../types/api.ts'
@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
 import DeptModal, { type CreateDept } from './DeptModal.tsx'
 import SearchForm from '../../components/SearchForm.tsx'
+import { AuthButton } from '../../components/AuthButton.tsx'
 
 const Dept = () => {
   const [data, setData] = useState<IDept[]>([])
@@ -53,30 +54,33 @@ const Dept = () => {
       render: (_, record) => {
         return (
           <Space>
-            <Button
+            <AuthButton
+              auth="dept@create"
               type="primary"
               onClick={() => {
                 handleSubCreate(record._id)
               }}
             >
               新增
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="dept@edit"
               type="primary"
               onClick={() => {
                 handleEdit(record)
               }}
             >
               编辑
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="dept@delete"
               danger
               onClick={() => {
                 handleDelete(record._id)
               }}
             >
               删除
-            </Button>
+            </AuthButton>
           </Space>
         )
       },
@@ -138,9 +142,9 @@ const Dept = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">部门列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
+          <AuthButton auth="dept@create" type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
-          </Button>
+          </AuthButton>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} dataSource={data} loading={loading} />

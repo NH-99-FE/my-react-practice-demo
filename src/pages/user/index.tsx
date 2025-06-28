@@ -16,6 +16,7 @@ import type { IUser, IUserSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
 import UserModal, { type UserRef } from './UserModal.tsx'
 import SearchForm from '../../components/SearchForm.tsx'
+import { AuthButton } from '../../components/AuthButton.tsx'
 
 const User = () => {
   const [form] = Form.useForm()
@@ -172,18 +173,19 @@ const User = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">用户列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
+          <AuthButton auth="user@create" type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
-          </Button>
+          </AuthButton>
 
-          <Button
+          <AuthButton
+            auth="user@delete"
             type={'primary'}
             danger
             onClick={handlePatchConfirm}
             disabled={!userIds || userIds.length === 0}
           >
             批量删除
-          </Button>
+          </AuthButton>
         </div>
       </div>
       <Table

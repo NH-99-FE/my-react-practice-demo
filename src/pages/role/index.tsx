@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Space, Table, type TableColumnsType } from 'antd'
+import { Form, Input, message, Modal, Space, Table, type TableColumnsType } from 'antd'
 import type { IRole, IRoleSearchParams } from '../../types/api.ts'
 import { formatDate } from '../../utils'
 import api from '../../api/roleApi.ts'
@@ -7,6 +7,7 @@ import CreateRole, { type CreateRoleRef } from './RoleModal.tsx'
 import PermissionModal, { type SetPermissionRef } from './PermissionModal.tsx'
 import { useRef } from 'react'
 import SearchForm from '../../components/SearchForm.tsx'
+import { AuthButton } from '../../components/AuthButton.tsx'
 
 const Role = () => {
   const [form] = Form.useForm()
@@ -35,30 +36,33 @@ const Role = () => {
       render: (_, record) => {
         return (
           <Space>
-            <Button
+            <AuthButton
+              auth="role@create"
               type="primary"
               onClick={() => {
                 handleEdit(record)
               }}
             >
               编辑
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="role@edit"
               type="primary"
               onClick={() => {
                 handleSetPermission(record)
               }}
             >
               设置权限
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="role@delete"
               danger
               onClick={() => {
                 handleDelete(record._id)
               }}
             >
               删除
-            </Button>
+            </AuthButton>
           </Space>
         )
       },
@@ -124,9 +128,9 @@ const Role = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">角色列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
+          <AuthButton auth="role@create" type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
-          </Button>
+          </AuthButton>
         </div>
       </div>
       <Table bordered rowKey="_id" columns={columns} {...tableProps} />

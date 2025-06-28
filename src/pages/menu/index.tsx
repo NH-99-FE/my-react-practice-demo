@@ -1,4 +1,4 @@
-import { Button, Form, Input, message, Modal, Select, Space } from 'antd'
+import { Form, Input, message, Modal, Select, Space } from 'antd'
 import { Table } from 'antd'
 import type { TableColumnsType } from 'antd'
 import type { IMenu } from '../../types/api.ts'
@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { formatDate } from '../../utils'
 import MenuModal, { type CreateMenu } from './MenuModal.tsx'
 import SearchForm from '../../components/SearchForm.tsx'
+import { AuthButton } from '../../components/AuthButton.tsx'
 
 const Menu = () => {
   const [data, setData] = useState<IMenu[]>([])
@@ -78,30 +79,33 @@ const Menu = () => {
       render: (_, record) => {
         return (
           <Space>
-            <Button
+            <AuthButton
+              auth="menu@create"
               type="primary"
               onClick={() => {
                 handleSubCreate(record._id)
               }}
             >
               新增
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="menu@edit"
               type="primary"
               onClick={() => {
                 handleEdit(record)
               }}
             >
               编辑
-            </Button>
-            <Button
+            </AuthButton>
+            <AuthButton
+              auth="menu@delete"
               danger
               onClick={() => {
                 handleDelete(record._id)
               }}
             >
               删除
-            </Button>
+            </AuthButton>
           </Space>
         )
       },
@@ -174,9 +178,9 @@ const Menu = () => {
       <div className="mt-5 flex items-center justify-between rounded-md bg-white px-4 py-3 dark:bg-gray-800">
         <div className="font-bold">菜单列表：</div>
         <div>
-          <Button type={'primary'} className="mr-3" onClick={handleCreate}>
+          <AuthButton auth="menu@create" type={'primary'} className="mr-3" onClick={handleCreate}>
             新增
-          </Button>
+          </AuthButton>
         </div>
       </div>
       <Table

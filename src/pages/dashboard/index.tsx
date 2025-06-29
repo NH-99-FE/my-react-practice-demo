@@ -24,7 +24,7 @@ const Dashboard = () => {
     getPie1Chart()
     getPie2Chart()
     getRadarChart()
-  }, [lineChart, pie1Chart])
+  }, [lineChart, pie1Chart, radarChart])
 
   const getLineChart = async () => {
     const data = await api.getLineData()

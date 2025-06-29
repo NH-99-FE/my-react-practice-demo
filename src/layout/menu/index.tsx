@@ -62,8 +62,6 @@ const SiderMenu = () => {
     return menuTree
   }
 
-  console.log('menuItem', menuItem)
-
   return (
     <>
       <div className="flex items-center justify-center px-5 py-3">
